@@ -9,32 +9,32 @@ class AbstractManager
 {
 public:
 	/* Constructor */
-	AbstractManager();
+	AbstractManager() = default;
 
 	/* Destructor */
-	~AbstractManager();
+	~AbstractManager() = default;
 
 	/* Window Management */
-	Window* CreateWindow(WindowType, const std::string& title, int monitor, uint height, uint width);
-	bool ShouldClose(Window*) const;
-	void CloseWindow(Window*);
+	virtual Window* CreateWindow(WindowType type, const std::string& title, int monitor, uint height, uint width) = 0;
+	virtual bool ShouldClose(Window* window) const = 0;
+	virtual void CloseWindow(Window* window) = 0;
 
 	/* Accessors */
-	void GetWindowSize(Window*, uint& height, uint& width) const;
-	void GetWindowPos(Window*, uint& x, uint& y) const;
-	std::string GetWindowTitle(Window*) const;
+	void GetWindowSize(Window* window, uint& height, uint& width) const;
+	void GetWindowPos(Window* window, uint& x, uint& y) const;
+	std::string GetWindowTitle(Window* window) const;
 
 	/* Modifiers */
-	void SetWindowSize(Window*, uint height, uint width);
-	void SetWindowPos(Window*, uint x, uint y);
-	void SetWindowTitle(Window*, const std::string& title);
+	virtual void RefreshWindow(Window* window) = 0;
+	virtual void SetWindowSize(Window* window, uint height, uint width) = 0;
+	virtual void SetWindowPos(Window* window, uint x, uint y) = 0;
+	virtual void SetWindowTitle(Window* window, const std::string& title) = 0;
 
 	/*
 	To be implemented at a later date:
+	- Set/Get Window Type
 	- Set Window Icon
 	- Set/Get Focus Window
 	- Hide/Show Window
 	*/
-private:
-
 };

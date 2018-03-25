@@ -1,38 +1,24 @@
 #pragma once
 
-#include <vulkan\vulkan.hpp>
-#include <GLFW\glfw3.h>
+#include "Display\Window\AbstractManager.h"
 
-#include <Display\Window\WindowManager.h>
-#include "GLFW.h"
-
-class GLFWManager : public WindowManager
+class GLFWManager : public AbstractManager
 {
 public:
-	static GLFWManager& Instance() {
-		static GLFWManager instance;
-		return instance;
-	}
-
-	GLFWManager(GLFWManager const&) = delete;
-	void operator=(GLFWManager const&) = delete;
-
-	bool ShouldClose();
-	void SignalClose();
-
-	GLFW* CreateWindow(WindowType, const std::string&, int moniotr, uint x, uint y, uint width, uint height);
-	
-	void SetWindowLayout(GLFW*, Layout*);
-
-	void Draw();
-	void Resize(GLFWwindow *, int, int);
-	void Refresh(GLFWwindow*);
-	void WindowPos(GLFWwindow *, int, int);
-
-	void Close(GLFWwindow *);
-
-
-private:
+	/* Constructor */
 	GLFWManager();
+
+	/* Destructor */
 	~GLFWManager();
+
+	/* Window Management */
+	Window* CreateWindow(WindowType, const std::string& title, int monitor, uint height, uint width);
+	bool ShouldClose(Window* window) const;
+	void CloseWindow(Window*);
+
+	void RefreshWindow(Window* window);
+	void SetWindowSize(Window* window, uint height, uint width);
+	void SetWindowPos(Window* window, uint x, uint y);
+	void SetWindowTitle(Window* window, const std::string& title);
+
 };
