@@ -9,21 +9,16 @@ public:
 	GLFWManager();
 
 	/* Destructor */
-	~GLFWManager() = default;
+	~GLFWManager();
 
 	/* Window Management */
-	Window* CreateWindow(WindowType type, const std::string& title, int monitor, uint height, uint width, Window* masterWindow, std::list<std::unique_ptr<Window>>& windows);
-	bool ShouldClose(Window* masterWindow) const;
-	void SignalClose(std::list<std::unique_ptr<Window>>&, bool& runningFlag);
-	void CloseWindow(Window* window);
+	Window* CreateWindow(WindowType, const std::string& title, int monitor, uint height, uint width);
+	bool ShouldClose(Window* window) const;
+	void CloseWindow(Window*);
 
 	void RefreshWindow(Window* window);
 	void SetWindowSize(Window* window, uint height, uint width);
 	void SetWindowPos(Window* window, uint x, uint y);
 	void SetWindowTitle(Window* window, const std::string& title);
-	
-private:
-	int monitorCount;
-	GLFWmonitor** monitors;
 
 };

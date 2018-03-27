@@ -27,7 +27,6 @@ public:
 	 */
 
 	Window(const std::string&, uint x, uint y, uint width, uint height);
-
 	/* Destructor. */
 	virtual ~Window() {}
 
