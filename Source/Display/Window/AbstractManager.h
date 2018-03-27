@@ -15,10 +15,19 @@ public:
 	~AbstractManager() = default;
 
 	/* Window Management */
-	virtual Window* CreateWindow(WindowType type, const std::string& title, int monitor, uint height, uint width) = 0;
-	virtual bool ShouldClose(Window* window) const = 0;
-	virtual void CloseWindow(Window* window) = 0;
+	virtual Window* CreateWindow(
+		WindowType type, 
+		const std::string& title, 
+		int monitor,
+		uint height,
+		uint width,
+		Window* masterWindow, 
+		std::list<std::unique_ptr<Window>>& windows) = 0;
 
+	virtual bool ShouldClose(Window* masterWindow) const = 0;
+	virtual void SignalClose(std::list<std::unique_ptr<Window>>& windows, bool& runningFlag) = 0;
+	virtual void CloseWindow(Window* window) = 0;
+		
 	/* Accessors */
 	void GetWindowSize(Window* window, uint& height, uint& width) const;
 	void GetWindowPos(Window* window, uint& x, uint& y) const;
